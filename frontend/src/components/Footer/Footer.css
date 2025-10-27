@@ -1,0 +1,127 @@
+.footer {
+  color: #d9d9d9;
+  background-color: #323232;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 8vw;
+  padding-top: 80px;
+}
+
+.footer-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: auto auto; /* 2 hàng: hàng 1 cho nội dung, hàng 2 cho icon */
+  gap: 40px;
+}
+
+/* Vị trí từng khối nội dung */
+.footer-content-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.footer-social-icons {
+  grid-column: 1; /* nằm cùng cột với .footer-content-left */
+  grid-row: 2; /* nằm ngay hàng dưới */
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: -10px; /* kéo sát lên mô tả */
+}
+
+.footer-social-icons img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.footer-social-icons img:hover {
+  transform: scale(1.15);
+}
+
+/* Giữa và phải */
+.footer-content-center {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.footer-content-right {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+}
+
+/* Căn chỉnh chữ */
+.footer-content-center h2,
+.footer-content-right h2 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-content-center ul,
+.footer-content-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.footer-content-left img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.footer-content-left p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* Đường kẻ ngăn cách */
+.footer hr {
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background-color: #555;
+  margin-top: 30px;
+}
+
+/* Dòng bản quyền */
+.footer p.footer-copyright {
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+}
+
+/* ---------------------- */
+/* Responsive cho mobile  */
+/* ---------------------- */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 30px;
+  }
+
+  .footer-social-icons {
+    grid-row: auto;
+    justify-content: flex-start;
+    margin-top: -10px;
+  }
+
+  .footer-content-center,
+  .footer-content-right {
+    grid-column: 1;
+  }
+
+  .footer-content-left,
+  .footer-content-center,
+  .footer-content-right {
+    text-align: left;
+  }
+}
