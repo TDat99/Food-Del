@@ -1,0 +1,227 @@
+/* ========== Theme ========== */
+:root{
+  --tomato: #ff6b52;         /* Tomato dịu */
+  --tomato-strong: #ff6347;  /* Tomato chuẩn */
+  --tomato-light: #ffe6e2;   /* nền rất nhạt */
+  --ink-900:#111827;
+  --ink-700:#374151;
+  --ink-500:#6b7280;
+  --line:#e5e7eb;
+  --card:#ffffffcc;          /* trắng có alpha */
+  --bg-grad: radial-gradient(1200px 600px at 30% -10%, #fff7f4 0%, #ffffff 40%, #f8fafc 100%);
+}
+
+/* ========== Layout tổng ========== */
+.cart{
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 380px); /* trái linh hoạt, phải cố định */
+  column-gap: 56px;
+  background: var(--bg-grad);
+}
+
+/* Bảng items ở hàng trên chiếm full width */
+.cart-items{
+  grid-column: 1 / -1;
+  margin-bottom: 30px;
+}
+
+/* ========== Bảng items ========== */
+.cart-items-title{
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  color: var(--ink-500);
+  font-size: max(1vw, 12px);
+}
+
+.cart-items-item{
+  margin: 12px 0;
+  color: var(--ink-900);
+}
+
+.cart-items-item img{
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+
+.cart hr{
+  height: 1px;
+  background: var(--line);
+  border: none;
+}
+
+.cart-items-item .cross{
+  cursor: pointer;
+  user-select: none;
+  transition: transform .08s ease, color .15s ease;
+}
+.cart-items-item .cross:hover{
+  color: var(--tomato);
+  transform: scale(1.1);
+}
+
+/* ========== Khu vực dưới: Cart totals trái, Promo code phải ========== */
+.cart-bottom{
+  grid-column: 1;
+  align-self: start;
+  max-width: 560px;
+}
+
+/* Card “glass” nhẹ, viền sáng, bóng mềm */
+.cart-total{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  background: var(--card);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,107,82,.22);
+  border-radius: 14px;
+  box-shadow:
+    0 10px 24px rgba(17,24,39,.08),
+    inset 0 1px 0 rgba(255,255,255,.75);
+}
+
+.cart-total h2{
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: var(--ink-900);
+}
+
+.cart-total-details{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  color: var(--ink-700);
+  padding: 6px 0;
+}
+
+.cart-total > hr{
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #edf2f7, transparent);
+  margin: 2px 0;
+}
+
+/* Dòng Total nổi bật hơn */
+.cart-total-details b{
+  font-size: 17px;
+  color: var(--ink-900);
+}
+
+/* Nút Checkout – gradient tomato, glossy */
+.cart-bottom > button{
+  width: 100%;
+  height: 44px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--tomato) 0%, var(--tomato-strong) 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow:
+    0 10px 20px rgba(255,107,82,.28),
+    inset 0 1px 0 rgba(255,255,255,.35);
+  transition: transform .08s ease, box-shadow .2s ease, filter .15s ease;
+   margin-bottom: 20px;
+}
+.cart-bottom > button:hover{
+  filter: brightness(1.03);
+  box-shadow:
+    0 12px 26px rgba(255,107,82,.34),
+    inset 0 1px 0 rgba(255,255,255,.45);
+}
+.cart-bottom > button:active{
+  transform: translateY(1px);
+ 
+}
+
+/* ========== Promo code bên phải ========== */
+.cart-promocode{
+  grid-column: 2;
+  align-self: start;
+}
+
+.cart-promocode > div{
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+
+.cart-promocode p{
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--ink-700);
+}
+
+/* Input + button cùng hàng, bóng nhẹ */
+.cart-promocode-input{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-promocode-input input{
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+}
+.cart-promocode-input input:focus{
+  border-color: rgba(255,107,82,.55);
+  box-shadow:
+    0 0 0 4px rgba(255,107,82,.12),
+    inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+/* Nút promo nhẹ nhàng theo tomato */
+.cart-promocode-input button{
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 0;
+  background: linear-gradient(180deg, #fff3f0 0%, #ffe6e2 100%);
+  color: var(--tomato);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 6px 14px rgba(255,107,82,.15),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  transition: filter .15s ease, transform .08s ease;
+}
+.cart-promocode-input button:hover{ filter: brightness(1.03); }
+.cart-promocode-input button:active{ transform: translateY(1px); }
+
+/* ========== Responsive ========== */
+@media (max-width: 980px){
+  .cart{
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+  }
+  .cart-bottom, .cart-promocode{
+    grid-column: 1;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px){
+  .cart-items-title{
+    grid-template-columns: 1.2fr 1.3fr .9fr .9fr .9fr .4fr;
+    font-size: 12px;
+  }
+  .cart-items-item img{ width: 48px; height: 48px; }
+}
