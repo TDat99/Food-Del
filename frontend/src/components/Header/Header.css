@@ -15,7 +15,7 @@
     max-width: 50%;
     bottom: 10%;
     left: 6vw;
-    animation: fadeIN 2s ease-in;
+    animation: fadeIN 1s ease-in;
 }
 .header-contents h2 {
     font-weight: 500;

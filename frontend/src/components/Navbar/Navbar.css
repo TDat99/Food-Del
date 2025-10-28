@@ -1,54 +1,113 @@
+/* ===== Layout chính ===== */
 .navbar {
-    padding: 20px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.navbar-logo {
-    width: 150px;
-}
-.navbar-menu {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-    font-size: 18px;
-    color: #49557e;
-}
-.navbar-right {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-.navbar-button {
-    background: transparent;
-    font-size: 16px;
-    color: #49557e;
-    border: 1px solid tomato;
-    padding: 10px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar-button:hover {
-    background-color: #fff4f2;
+/* Logo (bạn đang dùng class 'logo'; vẫn giữ 'navbar-logo' để tương thích cũ) */
+.navbar-logo { width: 150px; }
+.logo { width: 150px; height: auto; display: block; }
+
+/* Menu điều hướng */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  font-size: 18px;
+  color: #49557e;
 }
+
+/* Khu vực bên phải (search, giỏ, nút) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Nút Sign In: KHÔNG sửa JSX, áp qua selector vị trí */
+.navbar-right > button {
+  height: 42px;
+  padding: 0 26px;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(180deg, #ff6b52 0%, #ff6347 100%); /* Tomato glossy */
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  box-shadow:
+    0 6px 18px rgba(255, 107, 82, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease, filter 0.15s ease;
+}
+
+.navbar-right > button:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 8px 22px rgba(255, 107, 82, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.navbar-right > button:active {
+  transform: translateY(1px);
+}
+
+/* Giữ lại style cũ (không dùng nhưng để tương thích nếu sau này thêm class) */
+.navbar-button {
+  background: transparent;
+  font-size: 16px;
+  color: #49557e;
+  border: 1px solid tomato;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.navbar-button:hover { background-color: #fff4f2; }
+
+/* Link đang active */
 .navbar .active {
-    padding-bottom: 2px;
-    border-bottom: 2px solid #49557e;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #49557e;
 }
-.navbar li {
-    cursor: pointer;
-}
-.navbar-search-icon {
-    position: relative;
-}
+
+/* Con trỏ dạng click cho item menu (dù bạn đang dùng <Link>/<a>) */
+.navbar li { cursor: pointer; }
+
+/* Icon giỏ + chấm số lượng */
+.navbar-search-icon { position: relative; }
 .navbar-search-icon .dot {
-    position: absolute;
-    min-width: 10px;
-    min-height: 10px;
-    background-color: tomato;
-    border-radius: 5px;
-    top: -8px;
-    right: -8px;
+  position: absolute;
+  min-width: 10px;
+  min-height: 10px;
+  background-color: tomato;
+  border-radius: 5px;
+  top: -8px;
+  right: -8px;
+}
+
+/* Tối ưu hiển thị icon (không bắt buộc) */
+.navbar-right img,
+.navbar img.logo {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===== Responsive nhỏ ===== */
+@media (max-width: 768px) {
+  .navbar-menu { gap: 14px; font-size: 16px; }
+  .navbar-right { gap: 20px; }
+  .navbar-right > button { height: 40px; padding: 0 20px; font-size: 14px; }
+  .logo, .navbar-logo { width: 130px; }
+}
+
+@media (max-width: 480px) {
+  .navbar { padding: 16px 0; }
+  .navbar-menu { gap: 12px; font-size: 15px; }
+  .navbar-right { gap: 16px; }
+  .navbar-right > button { height: 38px; padding: 0 18px; font-size: 14px; }
+  .logo, .navbar-logo { width: 120px; }
 }
