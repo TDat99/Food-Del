@@ -12,7 +12,7 @@ const Footer = () => {
             </div>
             <div className="footer-social-icons">
                 <a href='https://www.facebook.com/datkunkka'><img src={assets.facebook_icon} alt="" /></a>
-                <img src={assets.twitter_icon} alt="" />
+                <a href="https://x.com/tTin1764181"><img src={assets.twitter_icon} alt="" /></a>
                 <img src={assets.linkedin_icon} alt="" />
             </div>
             <div className="footer-content-center">

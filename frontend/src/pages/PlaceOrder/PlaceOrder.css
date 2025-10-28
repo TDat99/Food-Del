@@ -1,0 +1,148 @@
+/* ================================
+   PlaceOrder Page – Tomato Glossy UI
+   ================================ */
+:root {
+  --tomato: #ff6b52;         /* Tomato dịu */
+  --tomato-strong: #ff6347;  /* Tomato chuẩn */
+  --panel-bg: #ffffffcc;     /* card trắng có độ mờ */
+  --ink-900: #111827;
+  --ink-700: #374151;
+  --ink-500: #6b7280;
+  --line: #e5e7eb;
+  --bg-grad: radial-gradient(1200px 600px at 30% -10%, #fff7f4 0%, #ffffff 40%, #f8fafc 100%);
+}
+
+/* Toàn trang */
+.place-order {
+  margin: 120px auto;
+  width: min(1100px, 90%);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(32px, 4vw, 56px);
+  background: var(--bg-grad);
+}
+
+/* Tiêu đề phần Delivery */
+.title {
+  font-size: clamp(20px, 2.3vw, 24px);
+  font-weight: 700;
+  margin-bottom: 22px;
+  color: var(--ink-900);
+}
+
+/* Các input form */
+.place-order-left input {
+  width: 100%;
+  height: 46px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 2px solid #ffe4cc;
+  background: #fff8f2;
+  padding: 0 14px;
+  font-size: 15px;
+  transition: border-color .15s ease, background-color .15s ease;
+  outline: none;
+}
+
+.place-order-left input:focus {
+  border-color: var(--tomato);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(255,107,82,.12);
+}
+
+/* Hai input nằm cạnh nhau */
+.multi-fields {
+  display: flex;
+  gap: 12px;
+}
+
+/* Phần Cart Total bên phải */
+.place-order-right .cart-total {
+  background: var(--panel-bg);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid rgba(255,107,82,.22);
+  box-shadow:
+    0 10px 24px rgba(17,24,39,.08),
+    inset 0 1px 0 rgba(255,255,255,.75);
+}
+
+.place-order-right h2 {
+  margin: 0 0 6px;
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--ink-900);
+}
+
+.cart-total-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  color: var(--ink-700);
+  font-size: 15px;
+}
+
+.place-order-right .cart-total hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e7ef, transparent);
+}
+
+/* Nút Proceed */
+.place-order-right button {
+  width: 100%;
+  height: 44px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--tomato) 0%, var(--tomato-strong) 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
+  box-shadow:
+    0 10px 20px rgba(255,107,82,.28),
+    inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+.place-order-right button:hover {
+  filter: brightness(1.03);
+  box-shadow:
+    0 12px 26px rgba(255,107,82,.34),
+    inset 0 1px 0 rgba(255,255,255,.45);
+}
+
+.place-order-right button:active {
+  transform: translateY(1px);
+}
+
+/* ================================
+   Responsive
+   ================================ */
+@media (max-width: 900px) {
+  .place-order {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .place-order-right {
+    max-width: 420px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .multi-fields {
+    flex-direction: column;
+  }
+  .place-order {
+    margin-top: 100px;
+    gap: 24px;
+  }
+}
