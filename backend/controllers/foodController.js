@@ -1,12 +1,15 @@
 import foodModel from "../models/foodModel.js";
-import fs from 'fs'
+import fs from "fs"
 
-
-// add food item
-
-const addFood = async (req, res) => {
-
+// add food item 
+    const addFood = async (req, res) => {
     let image_filename = `${req.file.filename}`;
+     if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Image file is required (no file found in request)",
+      });
+    }
 
     const food = new foodModel({
         name: req.body.name,
@@ -14,15 +17,14 @@ const addFood = async (req, res) => {
         price: req.body.price,
         category: req.body.category,
         image: image_filename
-    })
-
+    }); 
     try {
         await food.save();
-        res.json({success:true,message:"Food Added"})
+        res.json({success: true, message: "Food Added."});
     } catch (error) {
-        console.log(error)
-        res.json({ success: false, message: "Error" })
+        console.log(error);
+        res.json({success: false, message: "Error"});
     }
-}   
+}
 
-export {addFood}
+export { addFood };
