@@ -14,6 +14,9 @@ const LoginPopup = ({ setShowLogin }) => {
     password: "",
   });
 
+  // Checkbox state
+  const [agree, setAgree] = useState(false);
+
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -23,25 +26,31 @@ const LoginPopup = ({ setShowLogin }) => {
   const onLogin = async (event) => {
     event.preventDefault();
 
-    const endpoint = currState === "Login" ? "login" : "register";
-    const newUrl = `${url}api/user/${endpoint}`;
+    // Kiểm tra checkbox
+    if (!agree) {
+      alert("Bạn phải đồng ý với điều khoản trước khi tiếp tục!");
+      return;
+    }
 
-    console.log("Call API:", newUrl, "body:", data);
+    // === Viết đúng kiểu trong video ===
+    let newUrl = url;
+    if (currState === "Login") {
+      newUrl += "/api/user/login";
+    } else {
+      newUrl += "/api/user/register";
+    }
 
     try {
       const response = await axios.post(newUrl, data);
-      console.log("Response FE nhận:", response.data);
 
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        console.log("Đã lưu token vào localStorage:", response.data.token);
         setShowLogin(false);
       } else {
         alert(response.data.message);
       }
     } catch (err) {
-      console.error("Axios error:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Lỗi kết nối server");
     }
   };
@@ -57,6 +66,7 @@ const LoginPopup = ({ setShowLogin }) => {
             alt=""
           />
         </div>
+
         <div className="login-popup-inputs">
           {currState === "Login" ? null : (
             <input
@@ -77,6 +87,7 @@ const LoginPopup = ({ setShowLogin }) => {
             placeholder="Your email"
             required
           />
+
           <input
             name="password"
             onChange={onChangeHandler}
@@ -86,12 +97,20 @@ const LoginPopup = ({ setShowLogin }) => {
             required
           />
         </div>
-        <button type="submit">
+
+        {/* Nút login bị disable nếu chưa tick */}
+        <button type="submit" disabled={!agree} style={{ opacity: !agree ? 0.5 : 1 }}>
           {currState === "Sign Up" ? "Create account" : "Login"}
         </button>
+
         <div className="login-popup-condition">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={agree}
+            onChange={() => setAgree(!agree)}
+          />
           <p>By continuing, I agree to term of use &amp; Privacy policy.</p>
+
           {currState === "Login" ? (
             <p>
               Create a new account?{" "}
@@ -99,7 +118,7 @@ const LoginPopup = ({ setShowLogin }) => {
             </p>
           ) : (
             <p>
-              Alredy have an account?{" "}
+              Already have an account?{" "}
               <span onClick={() => setCurrState("Login")}>Login here</span>
             </p>
           )}
