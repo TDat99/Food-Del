@@ -7,7 +7,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [food_list, setFoodList] = useState(static_food_list); // <-- state trùng tên với FoodDisplay
-  const url = "https://backend-xyz.onrender.com";
+  const url = "http://localhost:4000";
   const [token, setToken] = useState("");
 
   // Thêm vào giỏ
