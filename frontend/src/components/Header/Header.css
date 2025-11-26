@@ -1,54 +1,95 @@
 .header {
-    height: 34vw;
-    margin: 30px auto;
-    background: url('/header_img.png') no-repeat;
-    background-size:contain ;
-    position: relative;
+  height: 34vw;
+  margin: 30px auto;
+  background: url("/header_img.png") center/cover no-repeat;
+  background-size: 110%; /* to hơn 1 chút để có chỗ di chuyển */
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+  transition: background-position 0.15s ease-out;
+}
+
+/* Overlay sáng để chữ dễ đọc nhưng ảnh vẫn rõ */
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.08)
+  );
+  z-index: 1;
 }
 
 .header-contents {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1.5vw;
-    max-width: 50%;
-    bottom: 10%;
-    left: 6vw;
-    animation: fadeIN 1s ease-in;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5vw;
+  max-width: 45%;
+  bottom: 15%;
+  left: 4vw;
+  z-index: 2;
 }
+
 .header-contents h2 {
-    font-weight: 500;
-    color: white;
-    font-size: max(4.5vw, 22px)
-    ;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: max(4vw, 32px);
+  letter-spacing: 0.5px;
 }
+
 .header-contents p {
-    color: white;
-    font-size: max(1vw);
+  color: #f4f4f4;
+  font-size: max(1vw, 16px);
+  line-height: 1.5;
 }
+
+/* Nút View Menu */
 .header-contents button {
-    border: none;
-    color:#747474 ;
-    font-weight: 500;
-    padding: 1vw, 2.3vw;
-    background-color: white;
-    font-size: max(1vw, 13px);
-    border-radius: 50px;
+  margin-top: 1vw;
+  padding: 1vw 3vw;
+  border-radius: 999px;
+  border: none;
+  background: #fff8e6;
+  color: #333333;
+  font-size: max(1vw, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 190, 110, 0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
-@media(max-width:1050px) {
-    .header-contents {
-        max-width: 45%;
-    }
+
+.header-contents button:hover {
+  transform: scale(1.07);
+  background: #ffe2aa;
+  box-shadow: 0 10px 30px rgba(255, 170, 70, 0.7);
 }
-@media(max-width:750px) {
-    .header-contents {
-        max-width: 65%;
-    }
-    .header-contents p {
-        display: none;
-    }
-    .header-contents button {
-        padding: 2vw 4vw;
-    }
+
+/* Responsive */
+@media (max-width: 1050px) {
+  .header-contents {
+    max-width: 55%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header {
+    height: 60vw;
+  }
+
+  .header-contents {
+    max-width: 70%;
+    bottom: 12%;
+  }
+
+  .header-contents p {
+    display: none;
+  }
+
+  .header-contents button {
+    padding: 2.3vw 5vw;
+  }
 }
