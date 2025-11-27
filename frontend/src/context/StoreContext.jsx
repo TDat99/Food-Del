@@ -10,7 +10,7 @@ const StoreContextProvider = (props) => {
   const url = "http://localhost:4000";
   const [token, setToken] = useState("");
 
-  // Thêm vào giỏ
+  // Thêm vào giỏ 
   const addToCart = (itemID) => {
     setCartItems((prev) => ({
       ...prev,
