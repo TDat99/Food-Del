@@ -1,70 +1,88 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list as static_food_list } from "../assets/assets";
 import axios from "axios";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [food_list, setFoodList] = useState(static_food_list); // <-- state trùng tên với FoodDisplay
-  const url = "http://localhost:4000";
+  const [food_list, setFoodList] = useState([]);
   const [token, setToken] = useState("");
+  const url = "http://localhost:4000";
 
-  // Thêm vào giỏ 
-  const addToCart = (itemID) => {
-    setCartItems((prev) => ({
-      ...prev,
-      [itemID]: (prev[itemID] || 0) + 1,
-    }));
+  // lấy danh sách món ăn
+  const fetchFoodList = async () => {
+    const response = await axios.get(url + "/api/food/list");
+    setFoodList(response.data.data);
   };
 
-  // Giảm số lượng / xóa khỏi giỏ
-  const removeFromCart = (itemID) => {
-    setCartItems((prev) => ({
-      ...prev,
-      [itemID]: Math.max((prev[itemID] || 0) - 1, 0),
-    }));
+  // lấy dữ liệu giỏ hàng từ backend
+  const loadCartData = async (token) => {
+    const response = await axios.post(url + "/api/cart/get",{},{ headers: { token } }
+    );
+    setCartItems(response.data.cartData);
   };
 
-  // Tính tổng tiền
+  // thêm vào giỏ hàng (if/else như video)
+  const addToCart = async (itemId) => {
+    if (!cartItems[itemId]) {
+      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
+    } else {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    }
+
+    if (token) {
+      await axios.post(
+        url + "/api/cart/add",
+        { itemId },
+        { headers: { token } }
+      );
+    }
+  };
+
+  // xoá / giảm số lượng trong giỏ (cũng if/else)
+  const removeFromCart = async (itemId) => {
+    if (cartItems[itemId] > 0) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    }
+
+    if (token) {
+      await axios.post(
+        url + "/api/cart/remove",
+        { itemId },
+        { headers: { token } }
+      );
+    }
+  };
+
+  // tính tổng tiền
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const id in cartItems) {
-      const qty = cartItems[id];
-      if (qty > 0) {
+      if (cartItems[id] > 0) {
         const itemInfo = food_list.find((product) => product._id === id);
         if (itemInfo) {
-          totalAmount += itemInfo.price * qty;
+          totalAmount += itemInfo.price * cartItems[id];
         }
       }
     }
     return totalAmount;
   };
 
-  // Lấy danh sách món ăn từ backend
-  const fetchFoodList = async () => {
-    try {
-      const response = await axios.get(url + "/api/food/list");
-      // tuỳ backend có field success hay không, nhưng setFoodList(data) là đủ
-      setFoodList(response.data.data);
-    } catch (error) {
-      console.error("Error fetching food list:", error);
-    }
-  };
-
+  // giống hệt useEffect trong video
   useEffect(() => {
-    const loadData = async () => {
+    async function loadData() {
       await fetchFoodList();
-      const savedToken = localStorage.getItem("token");
-      if (savedToken) setToken(savedToken);
-    };
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token"));
+      }
+    }
     loadData();
   }, []);
 
   const contextValue = {
-    food_list,          // <-- để FoodDisplay dùng được y nguyên
+    food_list,
     cartItems,
-    setCartItems,
     addToCart,
     removeFromCart,
     getTotalCartAmount,

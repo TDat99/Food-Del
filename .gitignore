@@ -1,0 +1,12 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Env files
+.env
+*.env
+backend/.env
+frontend/.env
+
+# Khác (nếu có)
+uploads/
