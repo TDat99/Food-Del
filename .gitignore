@@ -8,5 +8,8 @@ npm-debug.log*
 backend/.env
 frontend/.env
 
+
 # Khác (nếu có)
 uploads/
+backend/config/db.js
+
