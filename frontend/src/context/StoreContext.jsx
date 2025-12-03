@@ -9,20 +9,30 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const url = "http://localhost:4000";
 
-  // lấy danh sách món ăn
   const fetchFoodList = async () => {
     const response = await axios.get(url + "/api/food/list");
     setFoodList(response.data.data);
   };
 
-  // lấy dữ liệu giỏ hàng từ backend
-  const loadCartData = async (token) => {
-    const response = await axios.post(url + "/api/cart/get",{},{ headers: { token } }
-    );
-    setCartItems(response.data.cartData);
+  const loadCartData = async (tokenParam) => {
+    try {
+      const response = await axios.post(
+        url + "/api/cart/get",
+        {},
+        { headers: { token: tokenParam } }
+      );
+
+      if (response.data.success && response.data.cartData) {
+        setCartItems(response.data.cartData);
+      } else {
+        setCartItems({});
+      }
+    } catch (error) {
+      console.error("Error loading cart:", error);
+      setCartItems({});
+    }
   };
 
-  // thêm vào giỏ hàng (if/else như video)
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -39,7 +49,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // xoá / giảm số lượng trong giỏ (cũng if/else)
   const removeFromCart = async (itemId) => {
     if (cartItems[itemId] > 0) {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
@@ -54,7 +63,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // tính tổng tiền
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const id in cartItems) {
@@ -68,13 +76,13 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  // giống hệt useEffect trong video
   useEffect(() => {
     async function loadData() {
       await fetchFoodList();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"));
+      const savedToken = localStorage.getItem("token");
+      if (savedToken) {
+        setToken(savedToken);
+        await loadCartData(savedToken);
       }
     }
     loadData();
