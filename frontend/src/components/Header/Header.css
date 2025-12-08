@@ -2,24 +2,31 @@
   height: 34vw;
   margin: 30px auto;
   background: url("/header_img.png") center/cover no-repeat;
-  background-size: 110%; /* to hơn 1 chút để có chỗ di chuyển */
+  background-size: 115%; /* hơi to để có chỗ di chuyển */
   position: relative;
   border-radius: 25px;
   overflow: hidden;
   transition: background-position 0.15s ease-out;
 }
 
-/* Overlay sáng để chữ dễ đọc nhưng ảnh vẫn rõ */
+/* Overlay: bên trái hơi tối để đọc chữ, bên phải sáng dần lên */
 .header::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.08)
-  );
+  background:
+    /* ánh sáng trắng phía bên phải */
+    radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.35), transparent 55%),
+    /* overlay tối nhẹ bên trái cho chữ */
+    linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.18) 35%,
+      rgba(0, 0, 0, 0.06) 65%,
+      rgba(255, 255, 255, 0.10) 100%
+    );
   z-index: 1;
+  pointer-events: none;
 }
 
 .header-contents {
@@ -39,12 +46,14 @@
   color: #ffffff;
   font-size: max(4vw, 32px);
   letter-spacing: 0.5px;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.45); /* giúp chữ nổi hơn trên nền sáng */
 }
 
 .header-contents p {
-  color: #f4f4f4;
+  color: #f9fafb;
   font-size: max(1vw, 16px);
   line-height: 1.5;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 
 /* Nút View Menu */
@@ -58,14 +67,14 @@
   font-size: max(1vw, 16px);
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(255, 190, 110, 0.5);
+  box-shadow: 0 6px 20px rgba(255, 190, 110, 0.6);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .header-contents button:hover {
   transform: scale(1.07);
   background: #ffe2aa;
-  box-shadow: 0 10px 30px rgba(255, 170, 70, 0.7);
+  box-shadow: 0 10px 30px rgba(255, 170, 70, 0.8);
 }
 
 /* Responsive */

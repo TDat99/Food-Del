@@ -1,26 +1,51 @@
+/* =======================
+   Layout tổng thể form Add
+======================= */
+
 .add {
-  width: 70%;
+  width: 100%;
   max-width: 900px;
-  margin: 50px auto 0;
-  color: #444;
-  font-size: 16px;
+  margin: 24px auto;
+  padding: 24px 28px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
 }
 
 .add form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  background: #fff;
-  padding: 28px 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+  gap: 20px;
 }
 
-/* Upload ảnh */
-.add-img-upload {
+/* Dùng chung cho các khối theo chiều dọc */
+.flex-col {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Label chung cho các input */
+.add p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+/* =======================
+   Upload Image
+======================= */
+
+.add-img-upload {
+  align-items: flex-start;
+}
+
+.add-img-upload p {
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .add-img-upload label {
@@ -28,96 +53,145 @@
 }
 
 .add-img-upload img {
-  width: 160px;
-  height: 160px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
-  border-radius: 12px;
-  border: 2px dashed #ccc;
-  background: #fafafa;
+  border-radius: 18px;
+  border: 2px dashed rgba(148, 163, 184, 0.9);
+  background: #f8fafc;
   padding: 8px;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-/* Khối input / textarea đồng bộ */
-.add-prouct-name,
-.add-product-description,
-.add-category,
-.add-price {
+.add-img-upload img:hover {
+  border-color: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(148, 163, 184, 0.6);
+}
+
+/* =======================
+   Input & Textarea
+======================= */
+
+.add-prouct-name input,
+.add-product-description textarea,
+.add-category select,
+.add-price input {
   width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Nhãn label */
-.add p,
-.add label,
-.add-category p,
-.add-price p {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-/* Style input chuẩn đồng bộ */
-.add input,
-.add textarea,
-.add select {
-  width: 100%;
-  height: 46px; /* chiều cao đồng đều */
-  padding: 10px 14px;
+  max-width: 100%;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(209, 213, 219, 0.9);
+  padding: 10px 12px;
+  font-size: 14px;
   outline: none;
-  font-size: 15px;
-  background: #fafafa;
-  transition: 0.2s;
+  background: #f9fafb;
+  color: #0f172a;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
 }
 
-/* Textarea cao hơn nhưng vẫn đồng bộ style */
-.add textarea {
-  height: 120px;
+.add-product-description textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
-/* Hiệu ứng focus */
-.add input:focus,
-.add textarea:focus,
-.add select:focus {
-  border-color: #111;
-  background: #fff;
+.add-prouct-name input::placeholder,
+.add-product-description textarea::placeholder,
+.add-price input::placeholder {
+  color: #9ca3af;
 }
 
-/* 2 cột Category + Price đều nhau */
+.add-prouct-name input:focus,
+.add-product-description textarea:focus,
+.add-category select:focus,
+.add-price input:focus {
+  border-color: #0f172a;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.1);
+  transform: translateY(-0.5px);
+}
+
+/* =======================
+   Category + Price (2 cột)
+======================= */
+
 .add-category-price {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 18px;
+  width: 100%;
 }
 
-.add-category,
-.add-price {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* Nút ADD */
-.add-btn {
-  width: 160px;
-  padding: 12px 0;
-  border: none;
-  border-radius: 10px;
-  background: #111;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
+.add-category select {
   cursor: pointer;
-  transition: 0.15s ease;
+  background-position: right 10px center;
+}
+
+/* =======================
+   Nút ADD
+======================= */
+
+.add-btn {
+  margin-top: 4px;
+  align-self: flex-end;
+  padding: 10px 26px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f9fafb;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .add-btn:hover {
-  background: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.45);
+  opacity: 0.96;
 }
 
 .add-btn:active {
-  transform: scale(0.97);
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+}
+
+/* =======================
+   Responsive
+======================= */
+
+@media (max-width: 768px) {
+  .add {
+    margin: 16px;
+    padding: 18px 16px;
+  }
+
+  .add-category-price {
+    grid-template-columns: 1fr;
+  }
+
+  .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .add {
+    margin: 12px;
+    padding: 14px 12px;
+  }
+
+  .add-img-upload img {
+    width: 110px;
+    height: 110px;
+  }
 }
